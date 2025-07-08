@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: laravel-app
+    env: php
+    plan: free
+    branch: main
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      php artisan key:generate
+      php artisan migrate --force
+      php artisan storage:link
+    startCommand: php artisan serve --host 0.0.0.0 --port 10000
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://fahim.onrender.com
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        fromService:
+          type: mysql
+          name: laravel-mysql
+          property: host
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        fromService:
+          type: mysql
+          name: laravel-mysql
+          property: database
+      - key: DB_USERNAME
+        fromService:
+          type: mysql
+          name: laravel-mysql
+          property: user
+      - key: DB_PASSWORD
+        fromService:
+          type: mysql
+          name: laravel-mysql
+          property: password
+
+databases:
+  - name: laravel-mysql
+    plan: free
+    region: oregon
+    mysqlVersion: 8
