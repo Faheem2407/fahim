@@ -1,22 +1,16 @@
 services:
   - type: web
     name: laravel-app
-    env: php
-    plan: free
     branch: main
-    buildCommand: |
-      composer install --no-dev --optimize-autoloader
-      php artisan key:generate
-      php artisan migrate --force
-      php artisan storage:link
-    startCommand: php artisan serve --host 0.0.0.0 --port 10000
+    plan: free
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: APP_ENV
         value: production
+      - key: APP_KEY
+        generateValue: true
       - key: APP_DEBUG
         value: false
-      - key: APP_URL
-        value: https://fahim.onrender.com
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
@@ -45,5 +39,4 @@ services:
 databases:
   - name: fahim
     plan: free
-    region: oregon
     mysqlVersion: 8
