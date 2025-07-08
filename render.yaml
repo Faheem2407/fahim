@@ -22,28 +22,28 @@ services:
       - key: DB_HOST
         fromService:
           type: mysql
-          name: laravel-mysql
+          name: fahim
           property: host
       - key: DB_PORT
         value: 3306
       - key: DB_DATABASE
         fromService:
           type: mysql
-          name: laravel-mysql
+          name: fahim
           property: database
       - key: DB_USERNAME
         fromService:
           type: mysql
-          name: laravel-mysql
+          name: fahim
           property: user
       - key: DB_PASSWORD
         fromService:
           type: mysql
-          name: laravel-mysql
+          name: fahim
           property: password
 
 databases:
-  - name: laravel-mysql
+  - name: fahim
     plan: free
     region: oregon
     mysqlVersion: 8
